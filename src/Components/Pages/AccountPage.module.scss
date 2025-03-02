@@ -1,0 +1,248 @@
+.wrapper{
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    margin: 30px auto;
+    font-size: 24px;
+}
+.button{
+    text-decoration: none;
+    color: #333;
+    padding: 15px;
+}
+.target{
+    color: #fff;
+    background-color: #FF385C;
+    border-radius: 36px;
+}
+
+
+.info{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title{
+    text-align: center;
+}
+
+.btn-logout{
+    color: #fff;
+    border: none;
+    border-radius: 36px;
+
+    background-color: #FF385C;
+    padding: 10px;
+    width: 100px;
+}
+.upload{
+    margin-top: 30px;
+    min-width: 250px;
+    min-height: 150px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+.desc{
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+}
+.wrapper{
+    display: flex;
+    justify-content: space-around;
+        div{
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+        }
+        label{
+            cursor: pointer;
+            display: flex;
+            border: 1px solid #ccc;
+            margin: 15px;
+            border-radius: 10px;
+            align-items: center;
+            p{
+                margin-top: 12px;
+                margin-left: 15px;
+            }   
+            input{
+                margin-left: 15px;
+            }  
+            span{
+                margin-left: 15px;
+            }     
+        }
+        input{
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+}
+.wrap-check{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px; 
+    p{
+        font-weight: 600;
+        font-size: 18px;
+    }
+    input{
+        border-radius: 10px;
+        border: 1px solid #ccc;
+
+    }
+
+}
+.btn-save{
+    background-color: #FF385C;
+    border: none;
+    width: 100%;
+    margin-top: 20px;
+    color: #fff;
+    border-radius: 20px;
+}
+
+.upload-by-link{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ccc;
+    margin-top: 10px;
+    border-radius: 10px;
+    .img-upload{
+        width: 300px;
+        height: 200px;
+        margin: 8px;
+        border-radius: 10px;
+    }
+}
+.wrap-img{
+    position: relative;
+}
+.btn-delete{
+    position: absolute;
+    opacity: 0.9;
+    bottom: -5px;
+    right: 16px;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+}
+.wrap-upload{
+    display: flex;
+    .input-upload{
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+    .btn-upload{
+        border: none;
+        color: #fff;
+        background-color: #FF385C;
+        border-radius: 10px;
+        margin-left: 5px;
+    }
+
+}
+
+.input-file{
+    display: none;
+}
+.indexPageWrap{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+.wrap{
+    width: 308px;
+    height: 400px;
+}
+.placeWrap{
+    text-decoration: none;
+    color: inherit;
+    font-size: 1em;
+    font-weight: inherit;
+    line-height: inherit;
+font-size: 15px;
+font-weight: 600;
+}
+.img{
+    display: flex;
+    width: 1500px;
+}
+.desc-place{
+    text-decoration: underline;
+}
+.img-place{
+    width: 250px;
+    border-radius: 25px;
+    margin: 5px;
+}
+.warp-photos{
+    display: none;
+   position: fixed;
+   flex-wrap: wrap;
+   top: 0;
+   right: 0;
+   left: 0;
+   bottom: 0;
+   background-color: rgba(0,0,0,0.4);
+   overflow-y: auto;
+}
+.children{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 30px;
+    width: 600px;
+    border-radius: 20px;
+}
+.open{
+    display: block;
+}
+.show-all-photos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .img-place-show{
+        width: 500px;
+        border-radius: 25px;
+        margin: 5px;
+    }
+}
+
+.address-place{
+    font-size: 25px;
+    font-weight: 500    ;
+}
+
+.wrap-place{
+    display: flex;
+    flex-direction: column;
+}
+.b{
+    background-color: rgba(40, 45, 60, 0.04);
+
+}
+.a{
+    width: 1120px;
+    margin: 0 auto;
+}
+.wrap-information{
+    border-top: solid #ccc 1px;
+}
+.check-room{
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.btn-back{
+    border: none;
+    color: #fff;
+    background-color: #FF385C;
+    border-radius: 10px;
+    margin-left: 5px;
+    padding: 10px 34px;
+}
