@@ -4,9 +4,13 @@ const port = 6060;
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const jwtSecret = "aunasdfsdffsdjlksfdjl";
 const salt = bcrypt.genSaltSync(10);
-const db = require("./src/config/index");
-const UserModel = require("./src/models/UserModel");
+const db = require("./config/index");
+const UserModel = require("./models/User");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+
 
 
 db.connect();
@@ -84,9 +88,6 @@ app.post("/login", async (req, res) => {
     res.status(422).json(error);
   }
 });
-app.post("/logout", async (req, res) => {
-  return res.cookie("token", "").json("dang xuat");
-});
 var checkLogin = (req, res, next) => {
   const { token } = req.cookies;
   if (token) {
@@ -162,4 +163,10 @@ app.get("/profile", (req, res) => {
       res.json({ name, email, _id, role, avatar });
     });
   }
+});
+app.post("/logout", async (req, res) => {
+  return res.cookie("token", "").json("dang xuat");
+});
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
