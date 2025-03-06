@@ -30,38 +30,6 @@ extended:true
 }))
 //xQYLaGDmO7JLesCq
 
-var checkLogin = (req,res,next)=>{
-    const {token} = req.cookies
-    if(token){
-     const user= jwt.verify(token,jwtSecret)
-      UserModel.findOne({
-        _id:user.id
-      })
-      .then(data=>{
-        if(data){
-          req.data=data
-          next()
-        }
-      })
-    }else{
-      res.json([
-        {
-          pass:false,
-          mess:'ban chua dang nhap'
-        }
-      ])
-    }
-  }
-  var checkAdmin = (req,res,next)=>{
-     if(req.data.role === 'admin'){
-        next()
-     }else{
-      res.json([{
-        pass:false,
-        mess:'ban khong du quyen'
-      }])
-     }
-  }
 
 app.get('/profile', (req,res)=>{
   const {token} = req.cookies
