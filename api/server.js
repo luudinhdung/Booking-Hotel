@@ -34,7 +34,7 @@ app.use(
 );
 //xQYLaGDmO7JLesCq
 app.post("/register", async (req, res) => {
-  const { name, email, password, role, avatar } = req.body;
+  const { name, email, password, role, avatar, gender } = req.body;
   try {
     const checkEmail = await UserModel.findOne({
       email: email,
@@ -50,6 +50,7 @@ app.post("/register", async (req, res) => {
         password: bcrypt.hashSync(password, salt),
         role,
         avatar,
+        gender
       });
       return res.json({
         mess: "dang ki thanh cong",
@@ -135,6 +136,13 @@ app.get("/test", checkLogin, checkAdmin, (req, res) => {
       mess: "ban du quyen",
     },
   ]);
+});
+app.post("/search", async (req, res) => {
+  const data = await PlaceModel.find({
+    desc: { $regex: req.body.text, $options: "i" },
+  });
+
+  res.json(data);
 });
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;

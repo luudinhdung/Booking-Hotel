@@ -1,0 +1,75 @@
+.footer {
+  background: #f8f9fa; // Màu nền mới - xám nhạt
+  color: #333; // Màu chữ tối để dễ đọc
+  padding: 40px 10%;
+  font-family: "Poppins", sans-serif;
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 30px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 50px;
+  }
+
+  .footer-column {
+    min-width: 200px;
+  }
+
+  h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #555; // Màu tiêu đề đậm hơn một chút
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  a {
+    color: #666; // Màu chữ trung tính
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: #000; // Đổi màu khi hover để tạo hiệu ứng
+    }
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 15px;
+  }
+
+  .social-icons a {
+    color: #333; // Màu biểu tượng trung tính
+    font-size: 20px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}

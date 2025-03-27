@@ -1,78 +1,69 @@
 import axios from "axios";
-import { Link,Navigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import classNames from "classnames/bind"
-import style from './Auth.module.scss'
+import { Link, Navigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import classNames from "classnames/bind";
+import style from "./Auth.module.scss";
 import { UserContext } from "../User/User";
-const cx = classNames.bind(style)
+
+const cx = classNames.bind(style);
 
 function Login() {
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
-  const [redirect,setRedirect] = useState(false)
-  const [data,setData]= useState({})
-  const {setUser}= useContext(UserContext)
-  const handelSubmit =async (e)=>{
-    e.preventDefault()
-      const {data}= await  axios.post('http://localhost:6060/login',{email,password})
-      setUser(data.user)
-      setData(data.user)
-     switch (data.mess) {
-      case 'Đăng nhập thành công':
-        alert(data.mess)
-        setRedirect(true)
-        break;
-        case 'Sai mật khẩu':
-          alert(data.mess)
-          break;
-          case 'email không tồn tại':
-            alert(data.mess)
-            break;
-      default:
-        break;
-     }
-     
-  }
-  useEffect(()=>{
-    if(email,password){
-      if(data&& data.mess !== undefined){
-       alert(data.mess);  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
+  const { setUser } = useContext(UserContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("http://localhost:6060/login", {
+        email,
+        password,
+      });
+      setUser(data.user);
+      alert(data.mess);
+      if (data.mess === "Đăng nhập thành công") {
+        setRedirect(true);
       }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Có lỗi xảy ra, vui lòng thử lại!");
     }
-  },[data])
-  if(redirect){
-    return <Navigate to={'/'}/>
+  };
+
+  if (redirect) {
+    return <Navigate to="/" />;
   }
 
-    return ( 
-      <div className="mt-4 grow flex items-center justify-around">
-      <div className="mb-64">
-        <h1 className="text-4xl text-center mb-4">Login</h1>
-        <div  className={cx('wrap')}>
-
-        <form className="max-w-md mx-auto" onSubmit={handelSubmit}>
-         
-          <input type="email"
-                 placeholder="your@email.com"
-                 value={email}
-                 onChange={ev => setEmail(ev.target.value)} 
-                 />
-          <input type="password"
-                 placeholder="password"
-                 value={password}
-                 onChange={ev => setPassword(ev.target.value)} />
-                 <div className={cx('btn-regist')}>
-                
-          <button className="primary" >Login</button>
-                 </div>
-          <div className="text-center py-2 text-gray-500">
-            Already a member? <Link className="underline text-black" to={'/register'}>Register</Link>
-          </div>
+  return (
+    <div className={cx("container")}>
+      <div className={cx("auth-box")}>
+        <h1 className={cx("title")}>Login</h1>
+        <form className={cx("form")} onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button className={cx("btn-submit")} type="submit">
+            Login
+          </button>
         </form>
-        </div>
+        <p className={cx("text-center")}>
+          Don't have an account? <Link to="/register">Register</Link>
+        </p>
       </div>
     </div>
-    );
+  );
 }
 
 export default Login;
