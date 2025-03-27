@@ -1,106 +1,114 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import classNames from "classnames/bind"
-import style from './Auth.module.scss'
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import classNames from "classnames/bind";
+import style from "./Auth.module.scss";
 
-const cx = classNames.bind(style) 
+const cx = classNames.bind(style);
 
-const  RegisterPage =()=>{
-  const [data,setData] = useState({})
-  const [email,setEmail] = useState('')
-  const [role,setRole] = useState('')
-  const [name,setName] = useState('')
-  const [password,setPassword] = useState('')
-  const [avatar,setAvatar] =useState('')
+const RegisterPage = () => {
+  const [data, setData] = useState({});
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [gender, setGender] = useState("");
 
-  async function registerUser(e){
-    e.preventDefault()
-    if(email&&password&&role&&avatar){
-         await axios.post('http://localhost:6060/register',{
-          name,
-          email,
-          password,
-          role,
-          avatar
-        }).then( (res)=>{
-          setData(res.data)
-        })
-      }else if((email&&password&&role&&!avatar)){
-        await axios.post('http://localhost:6060/register',{
-          name,
-          email,
-          password,
-          role,
-          avatar:'uploads\\61c80a1a32d6acc85e21ec2912c4d847.webp'
-        }).then( (res)=>{
-          setData(res.data)
-        })
-      }
+  async function registerUser(e) {
+    e.preventDefault();
+    const userData = {
+      name,
+      email,
+      password,
+      role,
+      gender,
+      avatar: avatar || "uploads/61c80a1a32d6acc85e21ec2912c4d847.webp",
+    };
+    try {
+      const res = await axios.post("http://localhost:6060/register", userData);
+      setData(res.data);
+    } catch (error) {
+      console.error("Register error:", error);
     }
-    console.log(avatar);
-    async function handel(e){
-      const files = e.target.files
-      const data = new FormData()
-      data.append('photos',files[0])
-      await axios.post('http://localhost:6060/avatar',data,)
-      .then(res=>{
-       const {data}= res
-       setAvatar(data)
-      })
+  }
+
+  async function handleFileUpload(e) {
+    const files = e.target.files;
+    const formData = new FormData();
+    formData.append("photos", files[0]);
+    try {
+      const res = await axios.post("http://localhost:6060/avatar", formData);
+      setAvatar(res.data);
+    } catch (error) {
+      console.error("File upload error:", error);
     }
-    useEffect(()=>{
-      if(data.mess !== undefined)
-        alert(data.mess)
-    },[data])
-    return (
-      <div className="mt-4 grow flex items-center justify-around">
-      <div className="mb-64">
-        <h1 className="text-4xl text-center mb-4">Register</h1>
-        <div  className={cx('wrap')}>
+  }
 
-        <form className="max-w-md mx-auto" onSubmit={registerUser}>
-          
-           <input type="text"
-                 placeholder="your name"
-                 value={name}
-                 onChange={ev => setName(ev.target.value)} 
-                 />
-          <input type="email"
-                 placeholder="your@email.com"
-                 value={email}
-                 onChange={ev => setEmail(ev.target.value)} 
-                 />
-          <input type="password"
-                 placeholder="password"
-                 value={password}
-                 onChange={ev => setPassword(ev.target.value)} />
-                    <input type="text"
-                 placeholder="your role"
-                 value={role}
-                 onChange={ev => setRole(ev.target.value)} 
-                 />
-                   <label className={cx('btn-img')} htmlFor="" for="file">
-                      choose img
-                      </label>
-                  {avatar ? 
-                  <div className={cx('wrap-avatar')}>
-                    <img className={cx('avatar-img')} src={`http://localhost:6060/${avatar}`} alt="" />
-                  </div>
-                  : ''}
-                <input type="file" onChange={handel} id="file" style={{display:'none'}}/>
-                 <div className={cx('btn-regist')}>
+  useEffect(() => {
+    if (data.mess) alert(data.mess);
+  }, [data]);
 
-          <button className="primary" >Register</button>
-                 </div>
-          <div className="text-center py-2 text-gray-500">
-            Already a member? <Link className="underline text-black" to={'/login'}>Login</Link>
-          </div>
+  return (
+    <div className={cx("container")}>
+      <div className={cx("auth-box")}>
+        <h1 className={cx("title")}>Register</h1>
+        <form className={cx("form")} onSubmit={registerUser}>
+          <input
+            type="text"
+            placeholder="Your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <select value={gender} onChange={(e) => setGender(e.target.value)}>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            required
+          </select>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Your role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            required
+          />
+          <label className={cx("btn-upload")}>
+            Choose Image
+            <input type="file" onChange={handleFileUpload} hidden />
+          </label>
+          {avatar && (
+            <img
+              className={cx("avatar-preview")}
+              src={`http://localhost:6060/${avatar}`}
+              alt="Avatar"
+            />
+          )}
+          <button className={cx("btn-submit")} type="submit">
+            Register
+          </button>
         </form>
-        </div>
+        <p className={cx("text-center")}>
+          Already a member? <Link to="/login">Login</Link>
+        </p>
       </div>
     </div>
-    )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;

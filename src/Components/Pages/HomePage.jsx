@@ -45,7 +45,7 @@ function HomePage() {
         return <Navigate to={'/test'}/>
      }
     return ( <div>
-        <Header />
+        <Header setPlaces={setPlaces}/>
         <button onClick={()=>handel()} className={cx('btn-add')}>Add New Place </button>
 
         <div className={cx('wrapper')}>
